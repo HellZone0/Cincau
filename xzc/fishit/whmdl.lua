@@ -216,7 +216,7 @@ function WebhookModule.SendFishWebhook(fishId, metadata, data)
                 url = WebhookModule.GetThumbnailURL(fishData.Icon) or "https://cdn.discordapp.com/attachments/1387681189502124042/1449753201044750336/banners_pinterest_654429389618926022.jpg"
             },
             image = {
-                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=6961de35&is=69608cb5&hm=f9b6af3799bbdbfd795ff9a211073b2657056472ecd0e85123f06ecd99ec16e1&"
+                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=696286f5&is=69613575&hm=9c86037a25d7dd445b2098318b6ceca4d7fa1532ef01a790702b769d16f1d0f9&"
             },
             footer = {
                 text = "HellZone Webhook"
@@ -224,7 +224,7 @@ function WebhookModule.SendFishWebhook(fishId, metadata, data)
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }},
         username = "HellZone",
-        avatar_url = "https://cdn.discordapp.com/attachments/1387681189502124042/1453911584874168340/IMG_1130.png"
+        avatar_url = "https://cdn.discordapp.com/attachments/1422181713114824765/1452330883762749623/noFilter.png?ex=69627889&is=69612709&hm=1b59a2b454e3459578a332f1d580cdcc6f62d556ce7c55da3d93593ed793326f&"
     }
     
     WebhookModule.SendWebhook(webhookUrl, payload)
@@ -290,15 +290,15 @@ end
                 url = WebhookModule.GetThumbnailURL(fishData.Icon) or "https://cdn.discordapp.com/attachments/1387681189502124042/1449753201044750336/banners_pinterest_654429389618926022.jpg"
             },
             image = {
-                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=6961de35&is=69608cb5&hm=f9b6af3799bbdbfd795ff9a211073b2657056472ecd0e85123f06ecd99ec16e1&"
+                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=696286f5&is=69613575&hm=9c86037a25d7dd445b2098318b6ceca4d7fa1532ef01a790702b769d16f1d0f9&"
             },
             footer = {
-                text = "@HellZone Webhook",
+                text = "@aikoware Webhook",
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }},
-        username = "HellZone",
-        avatar_url = "https://cdn.discordapp.com/attachments/1387681189502124042/1453911584874168340/IMG_1130.png"
+        username = "AIKO",
+        avatar_url = "https://cdn.discordapp.com/attachments/1422181713114824765/1452330883762749623/noFilter.png?ex=69627889&is=69612709&hm=1b59a2b454e3459578a332f1d580cdcc6f62d556ce7c55da3d93593ed793326f&"
     }
     
     WebhookModule.SendWebhook(webhookUrl, payload)
@@ -331,12 +331,12 @@ function WebhookModule.SendDisconnectWebhook(reason)
                 {name = "**Reason:**", value = "`` ❯ " .. (reason or "Unknown") .. " ``", inline = false}
             },
             image = {
-                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=6961de35&is=69608cb5&hm=f9b6af3799bbdbfd795ff9a211073b2657056472ecd0e85123f06ecd99ec16e1&"
+                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=696286f5&is=69613575&hm=9c86037a25d7dd445b2098318b6ceca4d7fa1532ef01a790702b769d16f1d0f9&"
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }},
-        username = "HellZone",
-        avatar_url = "https://cdn.discordapp.com/attachments/1387681189502124042/1453911584874168340/IMG_1130.png"
+        username = "AIKO",
+        avatar_url = "https://cdn.discordapp.com/attachments/1422181713114824765/1452330883762749623/noFilter.png?ex=69627889&is=69612709&hm=1b59a2b454e3459578a332f1d580cdcc6f62d556ce7c55da3d93593ed793326f&"
     }
     
     WebhookModule.SendWebhook(webhookUrl, payload)
@@ -409,12 +409,12 @@ function WebhookModule.SendTestWebhook()
             title = "✅ Webhook Connection Test!",
             description = "If you see this message, it means your webhook is working!",
             image = {
-                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=6961de35&is=69608cb5&hm=f9b6af3799bbdbfd795ff9a211073b2657056472ecd0e85123f06ecd99ec16e1&"
+                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=696286f5&is=69613575&hm=9c86037a25d7dd445b2098318b6ceca4d7fa1532ef01a790702b769d16f1d0f9&"
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }},
         username = "HellZone",
-        avatar_url = "https://cdn.discordapp.com/attachments/1387681189502124042/1453911584874168340/IMG_1130.png"
+        avatar_url = "https://cdn.discordapp.com/attachments/1422181713114824765/1452330883762749623/noFilter.png?ex=69627889&is=69612709&hm=1b59a2b454e3459578a332f1d580cdcc6f62d556ce7c55da3d93593ed793326f&"
     }
     
     if WebhookModule.SendWebhook(webhookUrl, payload) then
@@ -439,12 +439,12 @@ function WebhookModule.SendTestDisconnectWebhook()
                 {name = "Action", value = "Rejoining server now...", inline = false}
             },
             image = {
-                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=6961de35&is=69608cb5&hm=f9b6af3799bbdbfd795ff9a211073b2657056472ecd0e85123f06ecd99ec16e1&"
+                url = "https://cdn.discordapp.com/attachments/1422181713114824765/1438938016298045580/IMG_1180.jpg?ex=696286f5&is=69613575&hm=9c86037a25d7dd445b2098318b6ceca4d7fa1532ef01a790702b769d16f1d0f9&"
             },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }},
         username = "HellZone",
-        avatar_url = "https://cdn.discordapp.com/attachments/1387681189502124042/1453911584874168340/IMG_1130.png"
+        avatar_url = "https://cdn.discordapp.com/attachments/1422181713114824765/1452330883762749623/noFilter.png?ex=69627889&is=69612709&hm=1b59a2b454e3459578a332f1d580cdcc6f62d556ce7c55da3d93593ed793326f&"
     }
     
     WebhookModule.SendWebhook(webhookUrl, payload)
