@@ -1,4 +1,4 @@
-local AIKO = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/src/Library.lua"))()
+local AIKO = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/src/Library.lua"))()
 
 local Window = AIKO:Window({
     Title   = "HellZone |",
@@ -2375,7 +2375,7 @@ disconnectSection:AddButton({
     end
 })
 
-local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/miscmdl.lua"))()
+local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/miscmdl.lua"))()
 MiscModule:Initialize()
 
 local idn = Misc:AddSection("Hide Identity")
