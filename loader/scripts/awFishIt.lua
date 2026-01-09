@@ -1,8 +1,8 @@
 local AIKO = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/src/Library.lua"))()
 
 local Window = AIKO:Window({
-    Title   = "Aikoware |",
-    Footer  = "made by @aoki!",              
+    Title   = "HellZone |",
+    Footer  = "made by @minsoo!",              
     Version = 1,
 })
 
@@ -342,7 +342,7 @@ fsh:AddButton({
         StartLegitFishing(false)
 
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Manual Fix Stuck",
             Content = "Stuck Fixed",
             Delay = 2
@@ -574,11 +574,124 @@ bts:AddButton({
     Callback = function()
         RecoveryFishing()
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Manual Fix",
             Content = "Stuck Fixed",
             Delay = 2
         })
+    end
+})
+
+local blatv2 = Fishing:AddSection("Blatant V2")
+
+local BlatantV2 = {}
+BlatantV2.Active = false
+BlatantV2.Settings = {
+    ChargeDelay = 0.007,
+    CompleteDelay = 0.001,
+    CancelDelay = 0.001
+}
+
+local RF_UpdateAutoFishingState = NetFolder:FindFirstChild("RF/UpdateAutoFishingState")
+
+local function safeFire(func)
+    task.spawn(function()
+        pcall(func)
+    end)
+end
+
+local function ultraSpamLoop()
+    while BlatantV2.Active do
+        local startTime = tick()
+        
+        safeFire(function()
+            ChargeFishingRod:InvokeServer({[1] = startTime})
+        end)
+        
+        task.wait(BlatantV2.Settings.ChargeDelay)
+        
+        local releaseTime = tick()
+        safeFire(function()
+            RequestFishingMinigame:InvokeServer(1, 0, releaseTime)
+        end)
+        
+        task.wait(BlatantV2.Settings.CompleteDelay)
+        
+        safeFire(function()
+            FishingCompleted:FireServer()
+        end)
+        
+        task.wait(BlatantV2.Settings.CancelDelay)
+        safeFire(function()
+            CancelFishingInputs:InvokeServer()
+        end)
+    end
+end
+
+local RE_MinigameChanged = NetFolder:WaitForChild("RE/FishingMinigameChanged")
+RE_MinigameChanged.OnClientEvent:Connect(function(state)
+    if not BlatantV2.Active then return end
+    
+    task.spawn(function()
+        task.wait(BlatantV2.Settings.CompleteDelay)
+        
+        safeFire(function()
+            FishingCompleted:FireServer()
+        end)
+        
+        task.wait(BlatantV2.Settings.CancelDelay)
+        safeFire(function()
+            CancelFishingInputs:InvokeServer()
+        end)
+    end)
+end)
+
+blatv2:AddToggle({
+    Title = "Blatant V2",
+    Default = false,
+    Callback = function(enabled)
+        BlatantV2.Active = enabled
+        
+        if enabled then
+            pcall(function()
+                EquipToolFromHotbar:FireServer(1)
+            end)
+            task.wait(0.5)
+            task.spawn(ultraSpamLoop)
+        else
+            if RF_UpdateAutoFishingState then
+                safeFire(function()
+                    RF_UpdateAutoFishingState:InvokeServer(true)
+                end)
+            end
+            
+            task.wait(0.2)
+            safeFire(function()
+                CancelFishingInputs:InvokeServer()
+            end)
+        end
+    end
+})
+
+blatv2:AddInput({
+    Title = "Complete Delay",
+    Placeholder = "0.001",
+    Callback = function(value)
+        local num = tonumber(value)
+        if num and num >= 0 then
+            BlatantV2.Settings.CompleteDelay = num
+        end
+    end
+})
+
+blatv2:AddInput({
+    Title = "Cancel Delay",
+    Placeholder = "0.001",
+    Callback = function(value)
+        local num = tonumber(value)
+        if num and num >= 0 then
+            BlatantV2.Settings.CancelDelay = num
+        end
     end
 })
 
@@ -794,14 +907,14 @@ rds:AddButton({
 
             if success then
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Rod Purchase", 
                     Content = "Purchased " .. selectedRod, 
                     Delay = 3
                 })
             else
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Rod Purchase Error", 
                     Content = tostring(err), 
                     Delay = 5
@@ -809,7 +922,7 @@ rds:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error", 
                 Content = "Invalid rod selection", 
                 Delay = 3
@@ -884,14 +997,14 @@ bs:AddButton({
 
             if success then
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Bait Purchase",
                     Content = "Purchased " .. selectedBait,
                     Delay = 3
                 })
             else
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Bait Purchase Error",
                     Content = tostring(err),
                     Delay = 5
@@ -899,7 +1012,7 @@ bs:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "Invalid bait selection",
                 Delay = 3
@@ -990,14 +1103,14 @@ bos:AddButton({
 
             if success then
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Boat Purchase",
                     Content = "Purchased " .. selectedBoat,
                     Delay = 3
                 })
             else
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Boat Purchase Error",
                     Content = tostring(err),
                     Delay = 5
@@ -1005,7 +1118,7 @@ bos:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "Invalid boat selection",
                 Delay = 3
@@ -1068,7 +1181,7 @@ local function startAutoBuy()
                     end)
                     if success then
                         AIKO:MakeNotify({
-                            Title = "Aikoware",
+                            Title = "HellZone",
                             Description = "| Weather Purchase",
                             Content = "Purchased " .. displayName,
                             Delay = 2
@@ -1094,7 +1207,7 @@ local autobuyweather = ws:AddToggle({
         if state then
             if #selectedWeathers == 0 then
                 AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Error",
                     Content = "No weather selected",
                     Delay = 3
@@ -1113,7 +1226,7 @@ ws:AddButton({
     Callback = function()
         if #selectedWeathers == 0 then
             AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No weather selected",
                 Delay = 3
@@ -1129,14 +1242,14 @@ ws:AddButton({
                 end)
                 if success then
                     AIKO:MakeNotify({
-                        Title = "Aikoware",
+                        Title = "HellZone",
                         Description = "| Weather Purchase",
                         Content = "Purchased " .. displayName,
                         Delay = 2
                     })
                 else
                     AIKO:MakeNotify({
-                        Title = "Aikoware",
+                        Title = "HellZone",
                         Description = "| Purchase Error",
                         Content = tostring(err),
                         Delay = 3
@@ -1456,7 +1569,7 @@ fav:AddButton({
         _G.AutoFavoriteRarities = {}
         GlobalFav.SelectedRarities = {}
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Cleared",
             Content = "Rarity selection cleared",
             Delay = 2
@@ -1470,7 +1583,7 @@ fav:AddButton({
     Callback = function()
         GlobalFav.SelectedVariants = {}
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Cleared",
             Content = "Variant selection cleared",
             Delay = 2
@@ -1478,7 +1591,7 @@ fav:AddButton({
     end
 })
 
-local TeleportData = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/tpmdl.lua"))()
+local TeleportData = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/tpmdl.lua"))()
 
 local loc = Teleport:AddSection("Location")
 
@@ -1515,7 +1628,7 @@ loc:AddButton({
             if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                 LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(TeleportData.Locations[selectedLocation])
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Teleported",
                     Content = "Teleported to " .. selectedLocation,
                     Delay = 3
@@ -1523,7 +1636,7 @@ loc:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No location selected",
                 Delay = 3
@@ -1569,7 +1682,7 @@ npcl:AddButton({
             if character and character:FindFirstChild("HumanoidRootPart") then
                 character:PivotTo(targetCFrame)
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Teleported",
                     Content = "Teleported to " .. selectedNPC,
                     Delay = 3
@@ -1577,7 +1690,7 @@ npcl:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No NPC selected",
                 Delay = 3
@@ -1623,7 +1736,7 @@ mach:AddButton({
             if character and character:FindFirstChild("HumanoidRootPart") then
                 character:PivotTo(targetCFrame)
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Teleported",
                     Content = "Teleported to " .. selectedMachine,
                     Delay = 3
@@ -1631,7 +1744,7 @@ mach:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No machine selected",
                 Delay = 3
@@ -1961,7 +2074,7 @@ evt:AddButton({
         priorityEventDropdown:SetValues(events)
         selectedEventsDropdown:SetValues(events)
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Event List",
             Content = "Refreshed! Found " .. #events .. " events",
             Delay = 3
@@ -1980,7 +2093,7 @@ evt:AddButton({
                     local offset = EventSettings.offsets[EventSettings.priorityEvent] or 7
                     hrp.CFrame = eventPart.CFrame + Vector3.new(0, offset, 0)
                     AIKO:MakeNotify({
-                        Title = "Aikoware",
+                        Title = "HellZone",
                         Description = "| Teleported",
                         Content = "Teleported to " .. EventSettings.priorityEvent,
                         Delay = 3
@@ -1988,7 +2101,7 @@ evt:AddButton({
                 end
             else
                 AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Error",
                     Content = "Event not found or not active",
                     Delay = 3
@@ -1996,7 +2109,7 @@ evt:AddButton({
             end
         else
             AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No priority event selected",
                 Delay = 3
@@ -2040,14 +2153,14 @@ ply:AddButton({
             if hrp and targetHRP then
                 hrp.CFrame = targetHRP.CFrame + Vector3.new(0,5,0)
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Teleported", 
                     Content = "Teleported to " .. selectedPlayer, 
                     Delay = 3
                 })
             else
                     AIKO:MakeNotify({
-                    Title = "Aikoware",
+                    Title = "HellZone",
                     Description = "| Error", 
                     Content = "Player not found or not loaded", 
                     Delay = 3
@@ -2055,7 +2168,7 @@ ply:AddButton({
             end
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error", 
                 Content = "No player selected", 
                 Delay = 3
@@ -2070,7 +2183,7 @@ ply:AddButton({
     Callback = function()
         playerDropdown:SetValues(TeleportData.GetPlayerNames(Players, LocalPlayer))
             AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "Refreshed", 
             Content = "Player list updated", 
             Delay = 3
@@ -2080,7 +2193,7 @@ ply:AddButton({
 
 local autotrade = Trade:AddSection("Auto Trade")
 
-local TradeModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/tpmdl.lua"))()
+local TradeModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/autotrademdl.lua"))()
 local Trade = TradeModule(Players, LocalPlayer, ReplicatedStorage, Library)
 
 local selectedTradePlayer = nil
@@ -2110,7 +2223,7 @@ autotrade:AddButton({
             Trade.SendTradeRequest(selectedTradePlayer)
         else
                 AIKO:MakeNotify({
-                Title = "Aikoware",
+                Title = "HellZone",
                 Description = "| Error",
                 Content = "No player selected",
                 Delay = 3
@@ -2135,7 +2248,7 @@ autotrade:AddButton({
     Callback = function()
         tradePlayerDropdown:SetValues(Trade.GetPlayerNames())
             AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Refreshed", 
             Content = "Player list updated", 
             Delay = 3
@@ -2143,10 +2256,10 @@ autotrade:AddButton({
     end
 })
 
-local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/whmdl.lua"))()
+local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/whmdl.lua"))()
 WebhookModule.Initialize()
 
-_G.WebhookRarities = _G.WebhookRarities or {}
+_G.WebhookRarities = _G.hWebhookRarities or {}
 
 local webhookSection = Webhook:AddSection("Webhook Settings")
 
@@ -2191,7 +2304,7 @@ webhookSection:AddButton({
     Callback = function()
         local success, message = WebhookModule.SendTestWebhook()
         AIKO:MakeNotify({
-            Title = "Aikoware",
+            Title = "HellZone",
             Description = "| Test Webhook",
             Content = message,
             Delay = 3
@@ -2262,7 +2375,7 @@ disconnectSection:AddButton({
     end
 })
 
-local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/miscmdl.lua"))()
+local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/miscmdl.lua"))()
 MiscModule:Initialize()
 
 local idn = Misc:AddSection("Hide Identity")
@@ -2377,6 +2490,53 @@ perf:AddToggle({
     end
 })
 
+local SkinModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/skinmdl.lua"))()
+local PingModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/pingmdl.lua"))()
+
+local skinSec = Misc:AddSection("Rod Skin Animations")
+
+skinSec:AddDropdown({
+    Title = "Select Skin",
+    Options = SkinModule:GetSkins(),
+    Multi = false,
+    Default = "Eclipse",
+    Callback = function(value)
+        if type(value) == "table" and #value > 0 then
+            SkinModule:SetSkin(value[1])
+        elseif type(value) == "string" then
+            SkinModule:SetSkin(value)
+        end
+    end
+})
+
+skinSec:AddToggle({
+    Title = "Enable Skin Animations",
+    Default = false,
+    Callback = function(enabled)
+        if enabled then
+            SkinModule:Enable()
+        else
+            SkinModule:Disable()
+        end
+    end
+})
+
+local monitor = Misc:AddSection("Real Ping")
+
+monitor:AddToggle({
+    Title = "Show Real Ping",
+    Default = false,
+    Callback = function(enabled)
+        if enabled then
+            PingModule:Enable()
+        else
+            PingModule:Disable()
+        end
+    end
+})
+
+PingModule:SetTitle("HellZone")
+
 local xpb = Misc:AddSection("Level Progress")
 
 local xpProgress = xpb:AddToggle({
@@ -2442,7 +2602,7 @@ local fishrad = radsr:AddToggle({
 })
 
 AIKO:MakeNotify({
-    Title = "Aikoware",
+    Title = "HellZone",
     Description = "Script Loaded",
     Content = "Game: Fish It",
     Delay = 5
