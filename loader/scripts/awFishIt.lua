@@ -2256,7 +2256,7 @@ autotrade:AddButton({
     end
 })
 
-local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/whmdl.lua"))()
+local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/whmdl.lua"))()
 WebhookModule.Initialize()
 
 _G.WebhookRarities = _G.hWebhookRarities or {}
@@ -2491,7 +2491,7 @@ perf:AddToggle({
 })
 
 local SkinModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/skinmdl.lua"))()
-local PingModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/pingmdl.lua"))()
+local PingModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/pingmdl.lua"))()
 
 local skinSec = Misc:AddSection("Rod Skin Animations")
 
