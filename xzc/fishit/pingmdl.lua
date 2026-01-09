@@ -167,7 +167,7 @@ local function createMonitorGUI()
     logoIcon.Size = UDim2.new(0, 24, 0, 24)
     logoIcon.Position = UDim2.new(0, 8, 0, 5)
     logoIcon.BackgroundTransparency = 1
-    logoIcon.Image = "rbxassetid://105338847670181"
+    logoIcon.Image = "rbxassetid://77461382621338"
     logoIcon.ImageTransparency = 0
     logoIcon.ScaleType = Enum.ScaleType.Fit
     logoIcon.Parent = header
