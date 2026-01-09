@@ -1,4 +1,4 @@
-local AIKO = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/src/Library.lua"))()
+local AIKO = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/src/Library.lua"))()
 
 local Window = AIKO:Window({
     Title   = "HellZone |",
@@ -1478,7 +1478,7 @@ fav:AddButton({
     end
 })
 
-local TeleportData = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/tpmdl.lua"))()
+local TeleportData = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/tpmdl.lua"))()
 
 local loc = Teleport:AddSection("Location")
 
@@ -2080,7 +2080,7 @@ ply:AddButton({
 
 local autotrade = Trade:AddSection("Auto Trade")
 
-local TradeModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/autotrademdl.lua"))()
+local TradeModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/tpmdl.lua"))()
 local Trade = TradeModule(Players, LocalPlayer, ReplicatedStorage, Library)
 
 local selectedTradePlayer = nil
@@ -2143,7 +2143,7 @@ autotrade:AddButton({
     end
 })
 
-local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/whmdl.lua"))()
+local WebhookModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/whmdl.lua"))()
 WebhookModule.Initialize()
 
 _G.WebhookRarities = _G.WebhookRarities or {}
@@ -2262,7 +2262,7 @@ disconnectSection:AddButton({
     end
 })
 
-local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/a11bove/kdoaz/refs/heads/main/xzc/fishit/miscmdl.lua"))()
+local MiscModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/HellZone0/Cincau/refs/heads/main/xzc/fishit/miscmdl.lua"))()
 MiscModule:Initialize()
 
 local idn = Misc:AddSection("Hide Identity")
