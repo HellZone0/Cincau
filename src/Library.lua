@@ -1,17 +1,17 @@
 local HttpService = game:GetService("HttpService")
 
-if not isfolder("HellZone") then
-    makefolder("HellZone")
+if not isfolder("aikoware") then
+    makefolder("aikoware")
 end
-if not isfolder("HellZone/cfg") then
-    makefolder("HellZone/cfg")
+if not isfolder("aikoware/cfg") then
+    makefolder("aikoware/cfg")
 end
 
 local gameName   = tostring(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
 gameName         = gameName:gsub("[^%w_ ]", "")
 gameName         = gameName:gsub("%s+", "_")
 
-local ConfigFile = "HellZone/cfg/aiko_" .. gameName .. ".json"
+local ConfigFile = "aikoware/cfg/aiko_" .. gameName .. ".json"
 
 ConfigData       = {}
 Elements         = {}
@@ -930,7 +930,7 @@ function AIKO:Window(GuiConfig)
     MainButton.Position = UDim2.new(0, 60, 0, 60)
     MainButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     MainButton.BackgroundTransparency = 0.5
-    MainButton.Image = "rbxassetid://105338847670181"
+    MainButton.Image = "rbxassetid://77461382621338"
     MainButton.Name = "hellzonetoggle"
     MainButton.AutoButtonColor = false
     MainButton.ScaleType = Enum.ScaleType.Fit
